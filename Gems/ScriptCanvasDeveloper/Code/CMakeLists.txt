@@ -48,7 +48,8 @@ ly_add_target(
     BUILD_DEPENDENCIES
         PRIVATE
             AZ::AzCore
-            Gem::ScriptCanvasDeveloper.Static
+            Gem::${gem_name}.Static
+            Gem::ImGui  # note that this includes the ImGui bus interfaces, but not necessarily the static lib 
     RUNTIME_DEPENDENCIES
         Gem::ScriptCanvas
 )
@@ -85,6 +86,7 @@ if(PAL_TRAIT_BUILD_HOST_TOOLS)
                 Gem::ScriptCanvasDeveloper.Static
                 Gem::ScriptCanvas.Editor.Static
                 Gem::GraphCanvasWidgets
+                Gem::ImGui  # note that this includes the ImGui bus interfaces, but not necessarily the static lib 
         RUNTIME_DEPENDENCIES
             Gem::ScriptCanvas.Editor
             Gem::GraphCanvasWidgets
