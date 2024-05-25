@@ -3557,18 +3557,20 @@ namespace ScriptCanvasEditor
 
     AZ::EntityId MainWindow::FindEditorNodeIdByAssetNodeId([[maybe_unused]] const SourceHandle& assetId, AZ::EntityId assetNodeId) const
     {
-        const ScriptCanvas::ScriptCanvasId scriptId = GetActiveScriptCanvasId();
-        AZ::EntityId newNodeId;
-        EditorGraphRequestBus::EventResult(newNodeId, scriptId, &EditorGraphRequests::FindNewIdFromOriginal, assetNodeId);
-        return newNodeId;
+        AZ::EntityId editorEntityId{};
+//         AssetTrackerRequestBus::BroadcastResult
+//             ( editorEntityId, &AssetTrackerRequests::GetEditorEntityIdFromSceneEntityId, assetId.Id(), assetNodeId);
+        // TODO https://github.com/o3de/o3de/issues/9192 broken by https://github.com/o3de/o3de/issues/6394
+        return editorEntityId;
     }
 
     AZ::EntityId MainWindow::FindAssetNodeIdByEditorNodeId([[maybe_unused]] const SourceHandle& assetId, AZ::EntityId editorNodeId) const
     {
-        const ScriptCanvas::ScriptCanvasId scriptId = GetActiveScriptCanvasId();
-        AZ::EntityId originalNodeId;
-        EditorGraphRequestBus::EventResult(originalNodeId, scriptId, &EditorGraphRequests::FindOriginalIdFromNew, editorNodeId);
-        return originalNodeId;
+        AZ::EntityId sceneEntityId{};
+        // AssetTrackerRequestBus::BroadcastResult
+        // ( sceneEntityId, &AssetTrackerRequests::GetSceneEntityIdFromEditorEntityId, assetId.Id(), editorNodeId);
+        // TODO https://github.com/o3de/o3de/issues/9192 broken by https://github.com/o3de/o3de/issues/6394
+        return sceneEntityId;
     }
 
     GraphCanvas::Endpoint MainWindow::CreateNodeForProposalWithGroup(const AZ::EntityId& connectionId
